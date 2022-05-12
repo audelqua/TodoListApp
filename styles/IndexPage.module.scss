@@ -1,0 +1,14 @@
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    width: 100vw;
+    height: 100vh;
+    // background-color: #ccc;
+}
+.cardTitle{
+    font-size: 50px;
+    color: rgb(109, 109, 109);
+}
