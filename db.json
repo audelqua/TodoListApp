@@ -1,3 +1,22 @@
 {
-  "my-todo-list": []
+  "my-todo-list": [
+    {
+      "createdAt": 1652439170061,
+      "completed": false,
+      "note": "awake at 6 AM tomorrow",
+      "id": 1
+    },
+    {
+      "createdAt": 1652439199446,
+      "completed": false,
+      "note": "go to university at 8 AM",
+      "id": 2
+    },
+    {
+      "createdAt": 1652439208800,
+      "completed": false,
+      "note": "get back home at 12AM",
+      "id": 3
+    }
+  ]
 }
