@@ -1,0 +1,43 @@
+.inputSection{
+    height: 50px;
+    background-color: #d5d5d5;
+    border-bottom: 1px solid #adadad;
+    display: flex;
+    flex-direction: row;
+    .customInput{
+        background-color: transparent;
+        // background-color: red;
+        width: 90%;
+        height: 100%;
+        border: none;
+        outline: none;
+        padding: 20px;
+        font-size: 20px;
+    }
+    .customInput::placeholder{
+        font-style: italic;
+    }
+    .buttonWrapper{
+        // background-color: yellow;
+        flex: 1;
+        padding: 5px
+    }
+    .addButton{
+        border: none;
+        outline: none;
+        cursor: pointer;
+        // background-color: yellow;
+        width: 100%;
+        height: 100%;
+        border-radius: 20px;
+        .buttonText{
+            font-size: 20px;
+            color: #646464;
+            font-weight: 600;
+        }
+    }
+    .addButton:hover{
+        background-color: rgb(255, 255, 215);
+    }
+    
+}

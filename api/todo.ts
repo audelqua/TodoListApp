@@ -10,3 +10,10 @@ export const addNewTaskApi = async newTaks => {
     return await fetchAPI({ url: '/my-todo-list', method: 'POST', data: taskInJSONFormat })
 }
 
+export const updateTaskApi = async task => {
+    let id = task.id
+    let taskInJSONFormat = JSON.stringify(task)
+    
+    return await fetchAPI({ url: `/my-todo-list/${id}`, method: 'PATCH', data: taskInJSONFormat })
+}
+

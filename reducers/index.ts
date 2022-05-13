@@ -14,6 +14,15 @@ const todoList = (state: TodoList = initialState, action: any) => {
       return { ...state, tasks: [ ...state.tasks, action.payload ] }
     case 'SET_ALL_TASKS':
       return { tasks: [ ...action.payload ] }
+    case 'UPDATE_TASK':
+      let targetTask = state.tasks.map(task => {
+        if(task.createdAt === action.payload.createdAt) {
+          return action.payload
+        }else{
+          return task
+        }
+      })
+      return { ...state, tasks: targetTask }
     default:
       return state;
   }

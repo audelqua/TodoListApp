@@ -1,34 +1,51 @@
-import React, {useState} from 'react'
+import React, {useState, useRef} from 'react'
 import styles from './ToDoCard.module.scss'
-import { addNewTaskAction } from '../../actions'
-import { addNewTaskApi } from '../../api/todo'
-import { newTaskGenerator } from '../../helpers'
+import { updateTaskAction } from '../../actions'
+import { updateTaskApi } from '../../api/todo'
 import { FaTimes } from 'react-icons/fa';
-import TaskCell from './taskCell'
+import AddNewTaskForm from './addNewTaskForm'
 import { useDispatch, useSelector } from 'react-redux'
 
 const ToDoCard = ({...props}) => {
+    const inputRef = useRef(null)
     const myTasks = useSelector(state => state.todoList.tasks)
-    const [targetTask, updateTargetTask] = useState({})
+    const dispatch = useDispatch()
+    const [selectedTask, updateSelectedTask] = useState({})
     const [editMode, updateEditMode] = useState(false)
     
-    const handleSetTargetTask = (e, task) => {
+    const handleSetSelectedTask = (e, task) => {
         if(e.detail === 2) {
             updateEditMode(task.createdAt)
-            updateTargetTask(task)
+            updateSelectedTask(task)
+            // inputRef.current.focus()
         }
     }
 
-    const handleSubmit = () => {
-
+    const handleSubmit = async (e) => {
+        e && e.preventDefault()
+        
+        try{
+            let res = await updateTaskApi(selectedTask)
+            if(res['status'] === 200) {
+                updateEditMode(false)
+                dispatch(updateTaskAction(selectedTask))
+            }
+        }catch(err) {
+            console.log('err', err);
+            
+        }
     }
 
-    const handleAction = type => {
+    const handleAction = (type, task) => {
         switch (type) {
             case 'UPDATE':
-                console.log('UPDATE');
+                updateEditMode(false)
+                handleSubmit()
                 break;
             case 'REMOVE':
+                console.log('DELETE');
+                break;
+            case 'CHANGE_STATUS':
                 console.log('DELETE');
                 break;
         }
@@ -41,17 +58,17 @@ const ToDoCard = ({...props}) => {
                 ?   myTasks.map(task => 
                         <div className={styles.listCointainer}>
                             <div className={styles.actionWrapper}>
-                                <input type='checkbox' className={styles.checkbox} />
+                                <input type='checkbox' className={styles.checkbox} onClick={() => handleAction('CHANGE_STATUS', task)}/>
                             </div>
-                            <div className={styles.taskMessageWrapper} onClick={(e) => handleSetTargetTask(e, task) }>
+                            <div className={styles.taskMessageWrapper} onClick={(e) => handleSetSelectedTask(e, task) }>
                                 {task.createdAt === editMode 
                                     ?   <form className={styles.updateTaskInputSection} onSubmit={handleSubmit}>
                                             <input 
                                                 type='text' 
                                                 className={styles.updateTaskInput} 
-                                                value={targetTask.note}
-                                                onChange={e => updateTargetTask(task => {return ({...task, note: e.target.value})})}
-                                                placeholder='What need to be done?'
+                                                value={selectedTask.note}
+                                                onChange={e => updateSelectedTask(task => {return ({...task, note: e.target.value})})}
+                                                ref={inputRef}
                                             />
                                         </form>
                                     :   <span className={styles.taskMessage}>{task.note}</span>
@@ -59,7 +76,7 @@ const ToDoCard = ({...props}) => {
                             </div>
                             <div 
                                 className={styles.actionWrapper + ' ' + styles.removeItem}
-                                onClick={() => handleAction(task.createdAt === editMode ? 'UPDATE' : 'REMOVE')}
+                                onClick={() => handleAction(task.createdAt === editMode ? 'UPDATE' : 'REMOVE', task)}
                             >
                                 {task.createdAt === editMode 
                                     ?   <span className={styles.actionText}>Update</span>
@@ -74,43 +91,3 @@ const ToDoCard = ({...props}) => {
     )
 }
 export default ToDoCard
-
-
-
-const AddNewTaskForm = ({...props}) => {
-    const dispatch = useDispatch()
-    const [newNote, updateNewNote] = useState('')
-
-    const handleSubmit = async e => {
-        e.preventDefault()
-        if(newNote === '') return
-        const newTask = newTaskGenerator(newNote)
-
-        try{
-            let res = await addNewTaskApi(newTask)
-            if(res["status"] === 201) {
-                dispatch(addNewTaskAction(newTask))
-                updateNewNote('')
-            }
-        }catch(error) {
-            console.log('error', error);
-        }
-    }
-
-    return (
-        <form className={styles.inputSection} onSubmit={handleSubmit}>
-            <input 
-                type='text' 
-                className={styles.customInput} 
-                value={newNote}
-                onChange={e => updateNewNote(e.target.value)}
-                placeholder='What need to be done?'
-            />
-            <div className={styles.buttonWrapper}>
-                <button className={styles.addButton} type='submit'>
-                    <span className={styles.buttonText}>Add</span>
-                </button>
-            </div>
-        </form>
-    )
-}
