@@ -118,9 +118,6 @@
                 cursor: pointer;
             }
         }
-        .removeItem{
-            display: none;
-        }
         .taskMessageWrapper{
             padding-left: 10px;
             flex: 1;
@@ -144,15 +141,6 @@
                     outline: none;
                     border: 1px solid #646464;
                 }
-            }
-        }
-    }
-    .rowContainer:hover{
-        .removeItem{
-            display: inherit;
-            padding: 10px;
-            .actionText{
-                font-weight: 600;
             }
         }
     }

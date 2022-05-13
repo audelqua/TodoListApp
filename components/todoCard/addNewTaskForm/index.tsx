@@ -4,6 +4,7 @@ import { addNewTaskAction } from '../../../actions'
 import { addNewTaskApi } from '../../../api/todo'
 import { newTaskGenerator } from '../../../helpers'
 import { useDispatch, useSelector } from 'react-redux'
+import { FaPlus } from 'react-icons/fa';
 
 const AddNewTaskForm = ({...props}) => {
     const dispatch = useDispatch()
@@ -17,8 +18,6 @@ const AddNewTaskForm = ({...props}) => {
         try{
             let res = await addNewTaskApi(newTask)
             if(res.status === 201) {
-                console.log(res);
-                
                 dispatch(addNewTaskAction(res.data))
                 updateNewNote('')
             }
@@ -38,7 +37,7 @@ const AddNewTaskForm = ({...props}) => {
             />
             <div className={styles.buttonWrapper}>
                 <button className={styles.addButton} type='submit'>
-                    <span className={styles.buttonText}>Add</span>
+                    <FaPlus className={styles.buttonText} />
                 </button>
             </div>
         </form>

@@ -89,24 +89,10 @@ const TaskCellS = ({...props}) => {
         }
     }
 
-    const handleFilterTasks = t => {
-        if(t.length > 0 ) {
-            let tempArr = t.map(task => ({...task}))
-            
-            switch (filterType) {
-                case 'ALL':
-                    updateTasks(tempArr)
-                    break;
-                case 'ACTIVE':
-                    updateFilteredTasks(tempArr.filter(task => task.completed))
-                    break;
-            }
-        }
-    }
-  
-    useEffect(() => {        
-        updateTasks(myTasks)
-        handleFilterTasks(myTasks)
+    useEffect(() => {      
+        let tempArr = myTasks.map(task => ({...task}))
+        updateTasks(tempArr)
+        updateFilteredTasks(tempArr.filter(task => task.completed))
     }, [myTasks, filterType])
 
     return (
@@ -131,12 +117,12 @@ const TaskCellS = ({...props}) => {
                                 }
                             </div>
                             <div 
-                                className={styles.actionWrapper + ' ' + styles.removeItem}
+                                className={styles.actionWrapper}
                                 onClick={() => handleAction(task.createdAt === editMode ? 'UPDATE' : 'REMOVE', task)}
                             >
                                 {task.createdAt === editMode 
                                     ?   <span className={styles.actionText}>Update</span>
-                                    :   <span><FaTimes /></span>
+                                    :   <FaTimes />
                                 }
                             </div>
                         </div>
