@@ -4,7 +4,7 @@ import { updateTaskAction, removeTaskAction } from '../../../actions'
 import { updateTaskApi, removeTaskApi } from '../../../api/todo'
 import { FaTimes } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
-
+import { FixedSizeList} from 'react-window';
 
 const TaskCellS = ({...props}) => {
     const myTasks = useSelector(state => state.todoList.tasks)
@@ -95,6 +95,8 @@ const TaskCellS = ({...props}) => {
         updateFilteredTasks(tempArr.filter(task => task.completed))
     }, [myTasks, filterType])
 
+  
+
     return (
         <div className={styles.listCointainer}>
             {myCurrentArray()?.length > 0 
@@ -130,6 +132,7 @@ const TaskCellS = ({...props}) => {
                 :   <div className={styles.noItemExist}>No task exist yet</div>
             }
         </div>
+        
     )
 }
 export default TaskCellS
