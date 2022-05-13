@@ -11,6 +11,7 @@ const ToDoCard = ({...props}) => {
     const dispatch = useDispatch()
     const [selectedTask, updateSelectedTask] = useState({})
     const [editMode, updateEditMode] = useState(false)
+    const [filterType, updateFilterType] = useState('ALL')
     
     const handleSetSelectedTask = (e, task) => {
         if(e.detail === 2) {
@@ -112,12 +113,22 @@ const ToDoCard = ({...props}) => {
                     }
                 </div>
                 <div className={styles.filtersWrapper}>
-                    <span>wefef</span>
+                    <span>3 items left</span>
                     <div className={styles.filterButtonWrapper}>
-                        <span className={styles.filterButton}>All</span>
-                        <span className={styles.filterButton}>Active</span>
+                        <span 
+                            className={filterType === 'ALL' ? styles.filterButton + ' ' + styles.active :  styles.filterButton}
+                            onClick={() => updateFilterType('ALL')}
+                        >
+                            All
+                        </span>
+                        <span 
+                            className={filterType === 'ACTIVE' ? styles.filterButton + ' ' + styles.active :  styles.filterButton}
+                            onClick={() => updateFilterType('ACTIVE')}
+                        >
+                            Active
+                        </span>
                     </div>
-                    <span>wefef</span>
+                    <button className={styles.clearButton}>clear completed</button>
                 </div>
             </div>
            
