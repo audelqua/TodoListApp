@@ -7,17 +7,24 @@ import { setAllTasksAction, updateFilterAction } from '../actions'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
 
+interface Types {
+  req: any,
+  res: any,
+  err: any,
+  myTasks: any,
+  data?: any
+}
 
-export async function getServerSideProps({  }) {
+export async function getServerSideProps({ req }:Types) {
   try {
-    let res = await getTodoListApi();
+    let res:Types = await getTodoListApi();
       
     return {
       props: {
         myTasks: res.data ?? [],
       }
     }
-  } catch (err) {
+  } catch (err:any) {
     return {
       props: {
         err: err.message || "",
@@ -26,7 +33,7 @@ export async function getServerSideProps({  }) {
   }
 }
 
-const Home: NextPage = ({myTasks, ...props}) => {
+const Home: NextPage = ({myTasks, ...props}:any) => {
   const dispatch = useDispatch()
   const router = useRouter()
   
