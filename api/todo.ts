@@ -6,32 +6,32 @@ interface TodoApi {
     id: Number
 }
 
-export const getTodoListApi = async () => {
-    return await fetchAPI({ url: '/my-todo-list' })
+export const getTodoListApi = () => {
+    return fetchAPI({ url: '/my-todo-list' })
 }
 
-export const addNewTaskApi = async (newTask:TodoApi) => {
+export const addNewTaskApi = (newTask:TodoApi) => {
     let taskInJSONFormat = JSON.stringify(newTask)
     
-    return await fetchAPI({ url: '/my-todo-list', method: 'POST', data: taskInJSONFormat })
+    return fetchAPI({ url: '/my-todo-list', method: 'POST', data: taskInJSONFormat })
 }
 
-export const updateTaskApi = async (task:TodoApi) => {    
+export const updateTaskApi = (task:TodoApi) => {    
     let id = task.id
     let taskInJSONFormat = JSON.stringify(task)
     
-    return await fetchAPI({ url: `/my-todo-list/${id}`, method: 'PATCH', data: taskInJSONFormat })
+    return fetchAPI({ url: `/my-todo-list/${id}`, method: 'PATCH', data: taskInJSONFormat })
 }
 
-export const removeTaskApi = async (task:TodoApi) => {
+export const removeTaskApi = (task:TodoApi) => {
     let id = task.id
     let taskInJSONFormat = JSON.stringify(task)
     
-    return await fetchAPI({ url: `/my-todo-list/${id}`, method: 'DELETE', data: taskInJSONFormat })
+    return fetchAPI({ url: `/my-todo-list/${id}`, method: 'DELETE', data: taskInJSONFormat })
 }
 
-export const removeCompleteTasksApi = async () => {
+export const removeCompleteTasksApi = () => {
     
-    return await fetchAPI({ url: `/my-todo-list/`, method: 'DELETE'})
+    return fetchAPI({ url: `/my-todo-list/`, method: 'DELETE'})
 }
 
