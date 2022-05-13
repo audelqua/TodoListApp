@@ -74,41 +74,54 @@ const ToDoCard = ({...props}) => {
     }
 
     return (
-        <div className={styles.cardWrapper}>
-            <AddNewTaskForm />
-            {myTasks.length > 0 
-                ?   myTasks.map(task => 
-                        <div className={styles.listCointainer}>
-                            <div className={styles.actionWrapper}>
-                                <input type='checkbox' checked={task.completed} className={styles.checkbox} onClick={() => handleAction('CHANGE_COMPLETED_STATUS', task)}/>
-                            </div>
-                            <div className={styles.taskMessageWrapper} onClick={(e) => handleSetSelectedTask(e, task) }>
-                                {task.createdAt === editMode 
-                                    ?   <form className={styles.updateTaskInputSection} onSubmit={handleUpdateTask}>
-                                            <input 
-                                                type='text' 
-                                                className={styles.updateTaskInput} 
-                                                value={selectedTask.note}
-                                                onChange={e => updateSelectedTask(task => {return ({...task, note: e.target.value})})}
-                                            />
-                                        </form>
-                                    :   <span className={styles.taskMessage}>{task.note}</span>
-                                }
-                            </div>
-                            <div 
-                                className={styles.actionWrapper + ' ' + styles.removeItem}
-                                onClick={() => handleAction(task.createdAt === editMode ? 'UPDATE' : 'REMOVE', task)}
-                            >
-                                {task.createdAt === editMode 
-                                    ?   <span className={styles.actionText}>Update</span>
-                                    :   <span><FaTimes /></span>
-                                }
-                            </div>
-                        </div>
-                    )
-                :   <div className={styles.noItemExist}>No task exist yet</div>
-            }
-        </div>
+        <>
+            <div className={styles.cardWrapper}>
+                <AddNewTaskForm />
+                <div className={styles.listCointainer}>
+                    {myTasks.length > 0 
+                        ?   myTasks.map(task => 
+                                <div className={styles.rowContainer}>
+                                    <div className={styles.actionWrapper}>
+                                        <input type='checkbox' checked={task.completed} className={styles.checkbox} onClick={() => handleAction('CHANGE_COMPLETED_STATUS', task)}/>
+                                    </div>
+                                    <div className={styles.taskMessageWrapper} onClick={(e) => handleSetSelectedTask(e, task) }>
+                                        {task.createdAt === editMode 
+                                            ?   <form className={styles.updateTaskInputSection} onSubmit={handleUpdateTask}>
+                                                    <input 
+                                                        type='text' 
+                                                        className={styles.updateTaskInput} 
+                                                        value={selectedTask.note}
+                                                        onChange={e => updateSelectedTask(task => {return ({...task, note: e.target.value})})}
+                                                    />
+                                                </form>
+                                            :   <span className={styles.taskMessage}>{task.note}</span>
+                                        }
+                                    </div>
+                                    <div 
+                                        className={styles.actionWrapper + ' ' + styles.removeItem}
+                                        onClick={() => handleAction(task.createdAt === editMode ? 'UPDATE' : 'REMOVE', task)}
+                                    >
+                                        {task.createdAt === editMode 
+                                            ?   <span className={styles.actionText}>Update</span>
+                                            :   <span><FaTimes /></span>
+                                        }
+                                    </div>
+                                </div>
+                            )
+                        :   <div className={styles.noItemExist}>No task exist yet</div>
+                    }
+                </div>
+                <div className={styles.filtersWrapper}>
+                    <span>wefef</span>
+                    <div className={styles.filterButtonWrapper}>
+                        <span className={styles.filterButton}>All</span>
+                        <span className={styles.filterButton}>Active</span>
+                    </div>
+                    <span>wefef</span>
+                </div>
+            </div>
+           
+        </>
     )
 }
 export default ToDoCard
