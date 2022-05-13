@@ -17,7 +17,9 @@ const AddNewTaskForm = ({...props}) => {
         try{
             let res = await addNewTaskApi(newTask)
             if(res.status === 201) {
-                dispatch(addNewTaskAction(newTask))
+                console.log(res);
+                
+                dispatch(addNewTaskAction(res.data))
                 updateNewNote('')
             }
         }catch(error) {
