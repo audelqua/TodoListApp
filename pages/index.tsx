@@ -38,7 +38,9 @@ const Home: NextPage = ({myTasks, ...props}:any) => {
   const router = useRouter()
   
   useEffect(() => {
-    dispatch(setAllTasksAction(myTasks))
+    if(myTasks) {
+      dispatch(setAllTasksAction(myTasks))
+    }
     if(router.query.filter) dispatch(updateFilterAction(router.query.filter))
   }, [])
 
