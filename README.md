@@ -5,7 +5,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 First, run the development and json servers with commands below:
 
 ```bash
-**yarn dev** 
+**yarn dev**
 and 
 **yarn start_db**
 ```
