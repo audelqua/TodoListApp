@@ -2,12 +2,12 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+First, run the development and json servers with commands below:
 
 ```bash
-yarn dev 
+**yarn dev** 
 and 
-yarn start_db
+**yarn start_db**
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result. 
