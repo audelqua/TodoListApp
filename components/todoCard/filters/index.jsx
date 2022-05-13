@@ -12,7 +12,6 @@ const Filters = ({...props}) => {
     const router  = useRouter()
     const [numberOfIncompleteTasks, setNumberOfIncompleteTasks] = useState(0)
 
-    console.log(tasks);
     const handleChangeFilter = type => {
         dispatch(updateFilterAction(type))
         router.push({ 
