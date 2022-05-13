@@ -5,8 +5,8 @@ interface Todo {
     task: Object,
 }
 
-export const getTodoListApi = (): any => {
-    return fetchAPI({ url: '/my-todo-list' })
+export const getTodoListApi = async () => {
+    return await fetchAPI({ url: '/my-todo-list' })
 }
 
 export const addNewTaskApi = async (newTask:Todo) => {
