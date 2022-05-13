@@ -13,6 +13,13 @@ export const updateTaskAction = task => (dispatch, getState) => {
     })
 }
 
+export const updateFilterAction = type => (dispatch, getState) => {
+    dispatch({
+        type: 'UPDATE_FILTER',
+        payload: type
+    })
+}
+
 export const removeTaskAction = task => (dispatch, getState) => {
     dispatch({
         type: 'REMOVE_TASK',

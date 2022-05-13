@@ -4,26 +4,31 @@ import styles from '../styles/IndexPage.module.scss'
 import TodoCard from '../components/todoCard'
 import { getTodoListApi } from '../api/todo'
 import { setAllTasksAction } from '../actions'
-
 import { useDispatch } from 'react-redux'
 
-const Home: NextPage = () => {
-  const dispatch = useDispatch()
-
-  const getListApiCall = async () => {
-    try{
-      let res = await getTodoListApi()
+export async function getServerSideProps({  }) {
+  try {
+    let res = await getTodoListApi();
       
-      if(res["status"] === 200) {
-        dispatch(setAllTasksAction(res.data))
+    return {
+      props: {
+        myTasks: res.data ?? [],
       }
-    }catch(err){
-      console.log(err)
+    }
+  } catch (err) {
+    return {
+      props: {
+        err: err.message || "",
+      }
     }
   }
+}
 
+const Home: NextPage = ({myTasks, ...props}) => {
+  const dispatch = useDispatch()
+  
   useEffect(() => {
-    getListApiCall()
+    dispatch(setAllTasksAction(myTasks))
   }, [])
 
   return (

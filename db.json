@@ -14,15 +14,9 @@
     },
     {
       "createdAt": 1652449069807,
-      "completed": false,
+      "completed": true,
       "note": "3",
       "id": 3
-    },
-    {
-      "createdAt": 1652449070380,
-      "completed": false,
-      "note": "4",
-      "id": 4
     },
     {
       "createdAt": 1652449070987,
@@ -31,14 +25,8 @@
       "id": 5
     },
     {
-      "createdAt": 1652449071606,
-      "completed": false,
-      "note": "6",
-      "id": 6
-    },
-    {
       "createdAt": 1652449072225,
-      "completed": false,
+      "completed": true,
       "note": "7",
       "id": 7
     },
@@ -53,48 +41,6 @@
       "completed": false,
       "note": "9",
       "id": 9
-    },
-    {
-      "createdAt": 1652449074632,
-      "completed": false,
-      "note": "10",
-      "id": 10
-    },
-    {
-      "createdAt": 1652449075340,
-      "completed": false,
-      "note": "11",
-      "id": 11
-    },
-    {
-      "createdAt": 1652449076084,
-      "completed": false,
-      "note": "12",
-      "id": 12
-    },
-    {
-      "createdAt": 1652449076770,
-      "completed": false,
-      "note": "13",
-      "id": 13
-    },
-    {
-      "createdAt": 1652449077579,
-      "completed": false,
-      "note": "14",
-      "id": 14
-    },
-    {
-      "createdAt": 1652449078536,
-      "completed": false,
-      "note": "15",
-      "id": 15
-    },
-    {
-      "createdAt": 1652449079471,
-      "completed": false,
-      "note": "16",
-      "id": 16
     }
   ]
 }

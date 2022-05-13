@@ -2,10 +2,12 @@ import { combineReducers } from "redux";
 
 interface TodoList {
   tasks: Array;
+  filter: String;
 }
 
 const initialState: TodoList = {
-  tasks: []
+  tasks: [],
+  filter: "ALL"
 }
 
 const todoList = (state: TodoList = initialState, action: any) => {
@@ -29,6 +31,8 @@ const todoList = (state: TodoList = initialState, action: any) => {
     case 'REMOVE_TASK':
       filteredList = state.tasks.filter(task => task.createdAt !== action.payload.createdAt)
       return { ...state, tasks: filteredList }
+    case 'UPDATE_FILTER':
+      return { ...state, filter: action.payload }
     default:
       return state;
   }
