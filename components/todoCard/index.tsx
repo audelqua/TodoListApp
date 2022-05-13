@@ -7,7 +7,6 @@ import AddNewTaskForm from './addNewTaskForm'
 import { useDispatch, useSelector } from 'react-redux'
 
 const ToDoCard = ({...props}) => {
-    const inputRef = useRef(null)
     const myTasks = useSelector(state => state.todoList.tasks)
     const dispatch = useDispatch()
     const [selectedTask, updateSelectedTask] = useState({})
@@ -17,11 +16,10 @@ const ToDoCard = ({...props}) => {
         if(e.detail === 2) {
             updateEditMode(task.createdAt)
             updateSelectedTask(task)
-            // inputRef.current.focus()
         }
     }
 
-    const handleSubmit = async (e) => {
+    const handleUpdateTask = async e => {
         e && e.preventDefault()
         try{
             let res = await updateTaskApi(selectedTask)
@@ -47,17 +45,30 @@ const ToDoCard = ({...props}) => {
         }
     }
 
+    const handleCompleteTask = async task => {
+        let myTask = {...task, completed: !task.completed}
+        
+        try{
+            let res = await updateTaskApi(myTask)
+            if(res['status'] === 200) {
+                dispatch(updateTaskAction(myTask))
+            }
+        }catch(err) {
+            console.log('err', err);
+        }
+    }
+
     const handleAction = (type, task) => {
         updateEditMode(false)
         switch (type) {
             case 'UPDATE':
-                handleSubmit()
+                handleUpdateTask()
                 break;
             case 'REMOVE':
                 handleRemoveTask(task)
                 break;
             case 'CHANGE_COMPLETED_STATUS':
-                dispatch(updateTaskAction(task))
+                handleCompleteTask(task)
                 break;
         }
     }
@@ -69,17 +80,16 @@ const ToDoCard = ({...props}) => {
                 ?   myTasks.map(task => 
                         <div className={styles.listCointainer}>
                             <div className={styles.actionWrapper}>
-                                <input type='checkbox' className={styles.checkbox} onClick={() => handleAction('CHANGE_COMPLETED_STATUS', task)}/>
+                                <input type='checkbox' checked={task.completed} className={styles.checkbox} onClick={() => handleAction('CHANGE_COMPLETED_STATUS', task)}/>
                             </div>
                             <div className={styles.taskMessageWrapper} onClick={(e) => handleSetSelectedTask(e, task) }>
                                 {task.createdAt === editMode 
-                                    ?   <form className={styles.updateTaskInputSection} onSubmit={handleSubmit}>
+                                    ?   <form className={styles.updateTaskInputSection} onSubmit={handleUpdateTask}>
                                             <input 
                                                 type='text' 
                                                 className={styles.updateTaskInput} 
                                                 value={selectedTask.note}
                                                 onChange={e => updateSelectedTask(task => {return ({...task, note: e.target.value})})}
-                                                ref={inputRef}
                                             />
                                         </form>
                                     :   <span className={styles.taskMessage}>{task.note}</span>

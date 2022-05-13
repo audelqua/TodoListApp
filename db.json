@@ -1,34 +1,3 @@
 {
-  "my-todo-list": [
-    {
-      "createdAt": 1652447099481,
-      "completed": false,
-      "note": "2",
-      "id": 2
-    },
-    {
-      "createdAt": 1652447100815,
-      "completed": false,
-      "note": "3",
-      "id": 3
-    },
-    {
-      "createdAt": 1652447102214,
-      "completed": false,
-      "note": "4",
-      "id": 4
-    },
-    {
-      "createdAt": 1652447118448,
-      "completed": false,
-      "note": "7",
-      "id": 7
-    },
-    {
-      "createdAt": 1652447193485,
-      "completed": false,
-      "note": "32r32",
-      "id": 8
-    }
-  ]
+  "my-todo-list": []
 }
