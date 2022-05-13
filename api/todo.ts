@@ -24,3 +24,8 @@ export const removeTaskApi = async task => {
     return await fetchAPI({ url: `/my-todo-list/${id}`, method: 'DELETE', data: taskInJSONFormat })
 }
 
+export const removeCompleteTasksApi = async () => {
+    
+    return await fetchAPI({ url: `/my-todo-list/`, method: 'DELETE'})
+}
+

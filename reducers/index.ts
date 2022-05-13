@@ -33,6 +33,8 @@ const todoList = (state: TodoList = initialState, action: any) => {
       return { ...state, tasks: filteredList }
     case 'UPDATE_FILTER':
       return { ...state, filter: action.payload }
+    case 'REMOVE_COMPLETED_TASKS':
+      return { ...state, tasks: action.payload }
     default:
       return state;
   }

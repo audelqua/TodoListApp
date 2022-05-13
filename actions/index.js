@@ -27,6 +27,12 @@ export const removeTaskAction = task => (dispatch, getState) => {
     })
 }
 
+export const removeCompletedTasksAction = tasks => (dispatch, getState) => {
+    dispatch({
+        type: 'REMOVE_COMPLETED_TASKS',
+        payload: tasks
+    })
+}
 
 export const setAllTasksAction = tasks => (dispatch, getState) => {
     dispatch({
