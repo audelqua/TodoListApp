@@ -1,5 +1,4 @@
 import { combineReducers } from "redux";
-import { newTaskGenerator } from '../helpers'
 
 interface TodoList {
   tasks: Array;
@@ -12,8 +11,9 @@ const initialState: TodoList = {
 const todoList = (state: TodoList = initialState, action: any) => {
   switch (action.type) {
     case 'ADD_NEW_TASK':
-      const newTask = newTaskGenerator(action.payload)
-      return { ...state, tasks: [ ...state.tasks, newTask ] }
+      return { ...state, tasks: [ ...state.tasks, action.payload ] }
+    case 'SET_ALL_TASKS':
+      return { tasks: [ ...action.payload ] }
     default:
       return state;
   }

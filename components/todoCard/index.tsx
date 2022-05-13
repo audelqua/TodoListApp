@@ -1,15 +1,26 @@
 import React, {useState} from 'react'
 import styles from './ToDoCard.module.scss'
 import { addNewTaskAction } from '../../actions'
+import { addNewTaskApi } from '../../api/todo'
+import { newTaskGenerator } from '../../helpers'
 import { useDispatch } from 'react-redux'
 
 const ToDoCard = ({...props}) => {
     const dispatch = useDispatch()
-    const [newTask, updateNewTask] = useState('')
+    const [taskMessage, updateTaskMessage] = useState('')
     
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault()
-        dispatch(addNewTaskAction(newTask))
+        const newTask = newTaskGenerator(taskMessage)
+
+        try{
+            let res = await addNewTaskApi(newTask)
+            console.log('res', res);
+            
+            dispatch(addNewTaskAction(newTask))
+        }catch(error) {
+            console.log('error', error);
+        }
     }
 
     return (
@@ -18,8 +29,8 @@ const ToDoCard = ({...props}) => {
                 <input 
                     type='text' 
                     className={styles.customInput} 
-                    value={newTask}
-                    onChange={e => updateNewTask(e.target.value)}
+                    value={taskMessage}
+                    onChange={e => updateTaskMessage(e.target.value)}
                     placeholder='What need to be done?'
                 />
                 <div className={styles.buttonWrapper}>

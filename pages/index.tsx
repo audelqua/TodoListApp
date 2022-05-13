@@ -2,19 +2,23 @@ import type { NextPage } from 'next'
 import React, { useEffect } from 'react'
 import styles from '../styles/IndexPage.module.scss'
 import TodoCard from '../components/todoCard'
-import { getTodoList } from '../api/todo'
+import { getTodoListApi } from '../api/todo'
+import { setAllTasksAction } from '../actions'
 
-import { useSelector } from 'react-redux'
-import axios from 'axios'
+import { useSelector, useDispatch } from 'react-redux'
 
 const Home: NextPage = () => {
   const myTasks = useSelector(state => state.todoList.tasks)
+  const dispatch = useDispatch()
 
   const getListApiCall = async () => {
     try{
-      let res = await getTodoList()
+      let res = await getTodoListApi()
       console.log(res);
       
+      if(res["status"] === 200) {
+        dispatch(setAllTasksAction(res.data))
+      }
     }catch(err){
       console.log(err)
     }
