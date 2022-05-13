@@ -17,3 +17,10 @@ export const updateTaskApi = async task => {
     return await fetchAPI({ url: `/my-todo-list/${id}`, method: 'PATCH', data: taskInJSONFormat })
 }
 
+export const removeTaskApi = async task => {
+    let id = task.id
+    let taskInJSONFormat = JSON.stringify(task)
+    
+    return await fetchAPI({ url: `/my-todo-list/${id}`, method: 'DELETE', data: taskInJSONFormat })
+}
+

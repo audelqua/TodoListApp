@@ -1,40 +1,34 @@
 {
   "my-todo-list": [
     {
-      "createdAt": 1652439170061,
+      "createdAt": 1652447099481,
       "completed": false,
-      "note": "awake at 6 AM tomorrow",
-      "id": 1
-    },
-    {
-      "createdAt": 1652439199446,
-      "completed": false,
-      "note": "go to university at 8 AMc weewf",
+      "note": "2",
       "id": 2
     },
     {
-      "createdAt": 1652439208800,
+      "createdAt": 1652447100815,
       "completed": false,
-      "note": "get back home at 12AM",
+      "note": "3",
       "id": 3
     },
     {
-      "createdAt": 1652439372254,
+      "createdAt": 1652447102214,
       "completed": false,
-      "note": "go to gym at 7PM",
+      "note": "4",
       "id": 4
     },
     {
-      "createdAt": 1652443262492,
+      "createdAt": 1652447118448,
       "completed": false,
-      "note": "1232131231234234",
-      "id": 5
+      "note": "7",
+      "id": 7
     },
     {
-      "createdAt": 1652444544286,
+      "createdAt": 1652447193485,
       "completed": false,
-      "note": "wefwef",
-      "id": 6
+      "note": "32r32",
+      "id": 8
     }
   ]
 }
