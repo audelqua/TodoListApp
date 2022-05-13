@@ -7,7 +7,7 @@ import { setAllTasksAction, updateFilterAction } from '../actions'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
 
-interface Types {
+interface IndexPagePropTypes {
   req: any,
   res: any,
   err: any,
@@ -15,9 +15,9 @@ interface Types {
   data?: any
 }
 
-export async function getServerSideProps({ req }:Types) {
+export async function getServerSideProps({ req }:IndexPagePropTypes) {
   try {
-    let res:Types = await getTodoListApi();
+    let res:IndexPagePropTypes = await getTodoListApi();
       
     return {
       props: {
@@ -38,9 +38,7 @@ const Home: NextPage = ({myTasks, ...props}:any) => {
   const router = useRouter()
   
   useEffect(() => {
-    if(myTasks) {
-      dispatch(setAllTasksAction(myTasks))
-    }
+    if(myTasks) dispatch(setAllTasksAction(myTasks))
     if(router.query.filter) dispatch(updateFilterAction(router.query.filter))
   }, [])
 

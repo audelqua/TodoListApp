@@ -1,14 +1,14 @@
 import axios from 'axios'
 import { formatURL } from '../helpers'
 
-interface props {
+interface FetchApi {
     url: String,
     method?: String,
     data?: Object
 }
 
 
-const fetchAPI = function ({ url, method, data }: props) {
+const fetchAPI = function ({ url, method, data }: FetchApi) {
     return new Promise((resolve, reject) => {
         let defaultConfig: any = {
             method: method || 'GET',

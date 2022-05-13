@@ -4,16 +4,15 @@ import { updateTaskAction, removeTaskAction } from '../../../actions'
 import { updateTaskApi, removeTaskApi } from '../../../api/todo'
 import { FaTimes } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
-import { FixedSizeList} from 'react-window';
 
 const TaskCellS = ({...props}) => {
     const myTasks = useSelector(state => state.todoList.tasks)
     const filterType = useSelector(state => state.todoList.filter)
-    
     const dispatch = useDispatch()
+    
     const [editMode, updateEditMode] = useState(false)
     const [tasks, updateTasks] = useState([])
-    const [filtersTasks, updateFilteredTasks] = useState([])
+    const [filteredTasks, updateFilteredTasks] = useState([])
     const [selectedTask, updateSelectedTask] = useState({})
 
 
@@ -28,7 +27,7 @@ const TaskCellS = ({...props}) => {
         e && e.preventDefault()
         try{
             let res = await updateTaskApi(selectedTask)
-            if(res['status'] === 200) {
+            if(res.status === 200) {
                 updateEditMode(false)
                 dispatch(updateTaskAction(selectedTask))
             }
@@ -41,7 +40,7 @@ const TaskCellS = ({...props}) => {
     const handleRemoveTask = async task => {
         try{
             let res = await removeTaskApi(task)
-            if(res['status'] === 200) {
+            if(res.status === 200) {
                 dispatch(removeTaskAction(task))
             }
         }catch(err) {
@@ -55,7 +54,7 @@ const TaskCellS = ({...props}) => {
         
         try{
             let res = await updateTaskApi(myTask)
-            if(res['status'] === 200) {
+            if(res.status === 200) {
                 dispatch(updateTaskAction(myTask))
             }
         }catch(err) {
@@ -78,32 +77,35 @@ const TaskCellS = ({...props}) => {
         }
     }
 
-    const myCurrentArray = () => {
+    const activeList = () => {
         switch (filterType) {
             case 'ALL':
                 return tasks
             case 'ACTIVE':
-                return filtersTasks
+                return filteredTasks
             default:
                 return tasks
         }
     }
 
+    const renderMessageOnEmptyList = () => {
+        if(filterType === 'ALL') return 'No task exist'
+        else if(filterType === 'ACTIVE') return 'No active task exist'
+    }
+
     useEffect(() => {      
         let tempArr = myTasks.map(task => ({...task}))
         updateTasks(tempArr)
-        updateFilteredTasks(tempArr.filter(task => task.completed))
+        updateFilteredTasks(tempArr.filter(task => !task.completed))
     }, [myTasks, filterType])
 
-  
-
     return (
-        <div className={styles.listCointainer}>
-            {myCurrentArray()?.length > 0 
-                ?   myCurrentArray()?.map(task => 
-                        <div className={styles.rowContainer}>
+        <div className={styles.listContainer}>
+            {activeList()?.length > 0 
+                ?   activeList()?.map(task => 
+                        <div className={styles.rowContainer} key={task.id}>
                             <div className={styles.actionWrapper}>
-                                <input type='checkbox' checked={task.completed} className={styles.checkbox} onClick={() => handleAction('CHANGE_COMPLETED_STATUS', task)}/>
+                                <input type='checkbox' checked={task.completed} className={styles.checkbox} onChange={() => handleAction('CHANGE_COMPLETED_STATUS', task)}/>
                             </div>
                             <div className={styles.taskMessageWrapper} onClick={(e) => handleSetSelectedTask(e, task) }>
                                 {task.createdAt === editMode 
@@ -129,7 +131,9 @@ const TaskCellS = ({...props}) => {
                             </div>
                         </div>
                     )
-                :   <div className={styles.noItemExist}>No task exist yet</div>
+                :   <div className={styles.noItemExist}>
+                        {renderMessageOnEmptyList()}
+                    </div>
             }
         </div>
         
