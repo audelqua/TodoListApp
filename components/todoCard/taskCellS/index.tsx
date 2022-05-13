@@ -89,26 +89,25 @@ const TaskCellS = ({...props}) => {
         }
     }
 
-    const handleFilterTasks = () => {
-        let tempArr = tasks.map(task => ({...task}))
-
-        switch (filterType) {
-            case 'ALL':
-                updateTasks(tempArr)
-                break;
-            case 'ACTIVE':
-                updateFilteredTasks(tempArr.filter(task => task.completed))
-                break;
+    const handleFilterTasks = t => {
+        if(t.length > 0 ) {
+            let tempArr = t.map(task => ({...task}))
+            
+            switch (filterType) {
+                case 'ALL':
+                    updateTasks(tempArr)
+                    break;
+                case 'ACTIVE':
+                    updateFilteredTasks(tempArr.filter(task => task.completed))
+                    break;
+            }
         }
     }
   
-    useEffect(() => {
+    useEffect(() => {        
         updateTasks(myTasks)
-    }, [myTasks])
-
-    useEffect(() => {
-        handleFilterTasks()
-    }, [filterType])
+        handleFilterTasks(myTasks)
+    }, [myTasks, filterType])
 
     return (
         <div className={styles.listCointainer}>

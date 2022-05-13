@@ -3,8 +3,10 @@ import React, { useEffect, useState } from 'react'
 import styles from '../styles/IndexPage.module.scss'
 import TodoCard from '../components/todoCard'
 import { getTodoListApi } from '../api/todo'
-import { setAllTasksAction } from '../actions'
+import { setAllTasksAction, updateFilterAction } from '../actions'
 import { useDispatch } from 'react-redux'
+import { useRouter } from 'next/router'
+
 
 export async function getServerSideProps({  }) {
   try {
@@ -26,9 +28,11 @@ export async function getServerSideProps({  }) {
 
 const Home: NextPage = ({myTasks, ...props}) => {
   const dispatch = useDispatch()
+  const router = useRouter()
   
   useEffect(() => {
     dispatch(setAllTasksAction(myTasks))
+    if(router.query.filter) dispatch(updateFilterAction(router.query.filter))
   }, [])
 
   return (
