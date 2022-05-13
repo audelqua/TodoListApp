@@ -6,11 +6,18 @@ import { newTaskGenerator } from '../../../helpers'
 import { useDispatch, useSelector } from 'react-redux'
 import { FaPlus } from 'react-icons/fa';
 
-const AddNewTaskForm = ({...props}) => {
+
+interface FormComponent {
+    e: Object,
+    preventDefault: Function,
+    
+}
+
+const AddNewTaskForm = () => {
     const dispatch = useDispatch()
     const [newNote, updateNewNote] = useState('')
 
-    const handleSubmit = async e => {
+    const handleSubmit = async (e:FormComponent) => {
         e.preventDefault()
         if(newNote === '') return
         const newTask = newTaskGenerator(newNote)

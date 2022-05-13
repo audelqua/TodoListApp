@@ -1,6 +1,5 @@
 import { BASE_URL } from '../constants/api'
 
-
 export const newTaskGenerator = note => {
     const newTask = new Object({
         createdAt: new Date().valueOf(),
